@@ -1,0 +1,4 @@
+data/
+gitea/
+mysql/
+*.env

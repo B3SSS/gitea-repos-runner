@@ -1,0 +1,25 @@
+version: '3'
+
+networks:
+  gitea:
+    driver: bridge
+
+volumes:
+  gitea_data:
+
+services:
+  runner:
+    image: gitea/act_runner:nightly
+    container_name: gitea-runner
+    environment:
+      CONFIG_FILE: /config.yaml
+      GITEA_INSTANCE_URL: http://gitea:3000
+      GITEA_RUNNER_REGISTRATION_TOKEN: "7kwDJPN4OKoBvp0eNeVkrI4FeCGSjT7mzHwvDhcM"
+      GITEA_RUNNER_NAME: gitearn
+      GITEA_RUNNER_LABELS: test
+    volumes:
+      - ./config.yaml:/config.yaml
+      - gitea_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gitea
